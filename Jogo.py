@@ -62,9 +62,7 @@ def check_win():
     return False, None
     
     
-    
 vez = 'X'
-cont = 1
 while True:
     render_quadro()
     ganhou, ganhador = check_win()

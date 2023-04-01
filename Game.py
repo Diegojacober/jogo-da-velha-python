@@ -6,6 +6,10 @@ class Game:
         self.__quadro = [{"A1": ' ', "B1" : ' ', "C1" : ' '}, {"A2" : ' ', "B2" : ' ', "C2" : ' '},{"A3" : ' ', "B3" : ' ', "C3" : ' '}]
         self.__vez = 'X'
         
+    @property
+    def vez(self):
+        return self.__vez    
+    
     def render_frame(self):
         print("\x1b[2J\x1b[1;1H", end="")
         for item in self.__quadro:
@@ -21,17 +25,24 @@ class Game:
                 return opc
             print('\033[31mDigite apenas um desses: A1, A2, A3, B1, B2, B3, C1, C2, C3\033[m')
             
-    def __add_option(self,posicao, opcao):
+    def add_option(self,posicao):
         for chave,item in enumerate(self.__quadro):
             for c,v in item.items():
                 if c == posicao:
                     if self.__quadro[chave][c] in 'XO':
                         return False
                     else:
-                        self.__quadro[chave][c] = opcao
+                        self.__quadro[chave][c] = self.__vez
+                        self.__vez = 'O' if self.__vez == 'X' else 'X'
                         return True
                 
-    def __check_win(self):
+    def next_player(self, player):
+        if player == 'O':
+            return 'X'
+        elif player == 'X':
+            return 'O'
+        
+    def check_win(self):
         wins = [
             ['A1','A2','A3'],
             ['B1','B2','B3'],
@@ -62,25 +73,25 @@ class Game:
                 return True, 'X'
         return False, None
     
-    def play(self):
-        while True:
-            self.render_frame()
-            ganhou, ganhador = self.__check_win()
-            if not ganhou:
-                opc = self.__get_option()
+    # def play(self):
+    #     while True:
+    #         self.render_frame()
+    #         ganhou, ganhador = self.__check_win()
+    #         if not ganhou:
+    #             opc = self.__get_option()
                 
-                if not self.__add_option(posicao=opc,opcao=self.__vez):
-                    print('\033[31mVocê não pode adicionar nessa posição\033[m')
-                    time.sleep(1.5)
-                else:
-                    print('\033[32mAdicionado com sucesso! \033[m')
-                    time.sleep(1)
-                    self.__vez = 'O' if self.__vez == 'X' else 'X'
-            else: 
-                print(f'\033[32mO vencedor foi o {ganhador}\033[m')
-                break
+    #             if not self.__add_option(posicao=opc,opcao=self.__vez):
+    #                 print('\033[31mVocê não pode adicionar nessa posição\033[m')
+    #                 time.sleep(1.5)
+    #             else:
+    #                 print('\033[32mAdicionado com sucesso! \033[m')
+    #                 time.sleep(1)
+    #                 self.__vez = 'O' if self.__vez == 'X' else 'X'
+    #         else: 
+    #             print(f'\033[32mO vencedor foi o {ganhador}\033[m')
+    #             break
             
             
 if __name__ == '__main__':
     jogo_da_velha = Game()
-    jogo_da_velha.play()
+    # jogo_da_velha.play()

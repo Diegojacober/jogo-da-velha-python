@@ -1,16 +1,17 @@
 import random
+from Game import Game
 
 from paho.mqtt import client as mqtt_client
 
 broker = 'broker.emqx.io'
 port = 1883
-topic = "python/mqtt"
+topic = "jogo-da-velha"
 # generate client ID with pub prefix randomly
-client_id = f'python-mqtt-{random.randint(0, 100)}'
+client_id = f'broker-jogo'
 username = 'emqx'
 password = 'public'
 
-
+jogo_da_velha = Game()
 def connect_mqtt() -> mqtt_client:
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
@@ -28,8 +29,28 @@ def connect_mqtt() -> mqtt_client:
 def subscribe(client: mqtt_client):
 
     def on_message(client, userdata, msg):
-        print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
-        mensagem = msg.payload.decode()
+        # print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+        jogo_da_velha.render_frame()
+        mensagem = msg.payload.decode().strip().split(';')
+        conteudo = mensagem[0]
+        user = mensagem[1]
+        vez = mensagem[2]
+        
+        if vez == jogo_da_velha.vez:
+           if jogo_da_velha.add_option(posicao=conteudo):
+                win, winner = jogo_da_velha.check_win()
+                if not win:
+                    jogo_da_velha.render_frame()
+                else:
+                    print(f'The winner is {winner}')
+                    exit()
+           else:
+               print(f'\033[04;31m O jogador {user} escolheu uma posição já ocupada\033[m')
+        else:
+            print(f'Jogador {user} tentou jogar na vez do outro player')
+        
+        print(f"Vez do jogador {jogo_da_velha.vez}")
+     
     client.subscribe(topic)
     client.on_message = on_message
 

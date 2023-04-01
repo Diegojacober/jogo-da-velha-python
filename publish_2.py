@@ -6,7 +6,7 @@ from paho.mqtt import client as mqtt_client
 
 broker = 'broker.emqx.io'
 port = 1883
-topic = "jogo-da-velha"
+topic = "diegoalencar/jogo-da-velha"
 client_id = f'player-2'
 username = 'emqx'
 password = 'public'

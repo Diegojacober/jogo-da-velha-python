@@ -73,25 +73,24 @@ class Game:
                 return True, 'X'
         return False, None
     
-    # def play(self):
-    #     while True:
-    #         self.render_frame()
-    #         ganhou, ganhador = self.__check_win()
-    #         if not ganhou:
-    #             opc = self.__get_option()
+    def play(self):
+        while True:
+            self.render_frame()
+            ganhou, ganhador = self.check_win()
+            if not ganhou:
+                opc = self.__get_option()
                 
-    #             if not self.__add_option(posicao=opc,opcao=self.__vez):
-    #                 print('\033[31mVocê não pode adicionar nessa posição\033[m')
-    #                 time.sleep(1.5)
-    #             else:
-    #                 print('\033[32mAdicionado com sucesso! \033[m')
-    #                 time.sleep(1)
-    #                 self.__vez = 'O' if self.__vez == 'X' else 'X'
-    #         else: 
-    #             print(f'\033[32mO vencedor foi o {ganhador}\033[m')
-    #             break
+                if not self.add_option(posicao=opc):
+                    print('\033[31mVocê não pode adicionar nessa posição\033[m')
+                    time.sleep(1.5)
+                else:
+                    print('\033[32mAdicionado com sucesso! \033[m')
+                    time.sleep(1)
+            else: 
+                print(f'\033[32mO vencedor foi o {ganhador}\033[m')
+                break
             
             
 if __name__ == '__main__':
     jogo_da_velha = Game()
-    # jogo_da_velha.play()
+    jogo_da_velha.play()

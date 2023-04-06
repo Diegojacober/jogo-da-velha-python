@@ -3,11 +3,18 @@ from Game import Game
 
 from paho.mqtt import client as mqtt_client
 
-broker = 'broker.emqx.io'
+# broker = 'broker.emqx.io'
+# port = 1883
+# topic = "diegoalencar/jogo-da-velha"
+# # generate client ID with pub prefix randomly
+# client_id = f'broker-jogo'
+# username = 'emqx'
+# password = 'public'
+
+broker = '10.21.160.16'
 port = 1883
-topic = "diegoalencar/jogo-da-velha"
-# generate client ID with pub prefix randomly
-client_id = f'broker-jogo'
+topic = "ets/jogo-da-velha-diego"
+client_id = f'player-1'
 username = 'emqx'
 password = 'public'
 

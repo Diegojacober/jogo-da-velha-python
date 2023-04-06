@@ -4,14 +4,19 @@ import time
 from paho.mqtt import client as mqtt_client
 
 
-broker = 'broker.emqx.io'
+# broker = 'broker.emqx.io'
+# port = 1883
+# topic = "diegoalencar/jogo-da-velha"
+# client_id = f'player-2'
+# username = 'emqx'
+# password = 'public'
+
+broker = '10.21.160.16'
 port = 1883
-topic = "diegoalencar/jogo-da-velha"
-client_id = f'player-2'
+topic = "ets/jogo-da-velha-diego"
+client_id = f'player-1'
 username = 'emqx'
 password = 'public'
-
-
 
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):

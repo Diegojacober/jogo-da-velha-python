@@ -92,15 +92,8 @@ class Game:
             
             
 if __name__ == '__main__':
-    import subprocess
-
-    p = subprocess.Popen(["python", "--help"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-
-    output, errors = p.communicate()
-
-    print(output)
     jogo_da_velha = Game()
     
 
 
-    # jogo_da_velha.play()
+    jogo_da_velha.play()

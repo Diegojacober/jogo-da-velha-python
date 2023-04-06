@@ -1,4 +1,4 @@
-import time
+import time, asyncio
 
 class Jogo:
     
@@ -13,7 +13,7 @@ class Jogo:
             ]
         
     
-    def status(self):
+    async def status(self):
         status = 'not connected'
         if self.__player1 in '' and self.__player1 in '':
             status = 'Nenhum Jogador conectado'
@@ -132,10 +132,9 @@ def get_option():
                 continue
 
 
-def play():
+async def play():
     jogo = Jogo(player1='', player2='i8h66h')
-    status_jogo = jogo.status()
-    
+    status_jogo = await jogo.status()
     if status_jogo == 'Preparado':
         jogo.render_board()
 
@@ -163,4 +162,4 @@ def play():
             print(status_jogo)
             time.sleep(2)
         
-play()
+asyncio.run(play())
